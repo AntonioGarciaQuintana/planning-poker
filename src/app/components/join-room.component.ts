@@ -36,8 +36,14 @@ export class JoinRoomComponent implements OnInit {
   }
 
   createForm() {
+    let participantSession = localStorage.getItem(environment.participantSession);
+
+    if (!participantSession) {
+      participantSession = uuidv4();
+    }
+
     this.form = this.formBuilder.group({
-      session: new FormControl(uuidv4(), [Validators.required]),
+      session: new FormControl(participantSession, [Validators.required]),
       name: new FormControl('', [Validators.required, Validators.maxLength(50)]),
     });
   }
