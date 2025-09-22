@@ -1,0 +1,20 @@
+<div class="flex flex-col items-center">
+  <form [formGroup]="form">
+    <fieldset class="fieldset bg-base-100 border-base-300 rounded-box w-xs border p-4">
+      <legend class="fieldset-legend">Join a Room</legend>
+      <div class="flex flex-col items-center">
+        <img [src]="avatarUrl" alt="Avatar random" class="w-32 h-32 rounded-full shadow" />
+        <button (click)="generateAvatar()" class="mt-2 px-4 py-2 bg-blue-500 text-white rounded">
+          generate Avatar
+        </button>
+      </div>
+      <label class="label">Session ID</label>
+      <input type="text" formControlName="session" [readOnly]="true" class="input" />
+
+      <label class="label">Your Name</label>
+      <input type="text" formControlName="name" [maxlength]="50" class="input" />
+
+      <button class="btn btn-primary mt-4" (click)="joinRoom()"  [disabled]="!form.valid" >Join</button>
+    </fieldset>
+  </form>
+</div>

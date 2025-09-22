@@ -1,0 +1,44 @@
+<div class="hero">
+  <div class="hero-content flex-col lg:flex-row-reverse lg:gap-12">
+    <div class="lg:text-center">
+      <h1 class="text-5xl font-bold text-center mb-4">Let's Start Estimating!</h1>
+      <img src="images/logo/logo-home-2.jpg" class="max-w-lg rounded-lg shadow-2xl block mx-auto" />
+      <p class="py-6 text-center">
+        It's time to make your estimates fun and transparent! Log in to create a room and start
+        playing Planning Poker with your team.
+      </p>
+    </div>
+    <div class="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
+      <div class="card-body">
+        <form [formGroup]="form">
+          <fieldset class="fieldset">
+            <label class="label">Name</label>
+            <input type="email" formControlName="name" [maxlength]="50" class="input" placeholder="" />
+            <label class="label">Session type</label>
+            <label class="label">
+              <input
+                type="radio"
+                formControlName="roomType"
+                name="roomType"
+                value="fibonacci"
+                class="radio radio-warning"
+              />
+              <span>Fibonacci (0, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89)</span>
+            </label>
+            <label class="label">
+              <input
+                type="radio"
+                formControlName="roomType"
+                name="roomType"
+                value="t-shirt"
+                class="radio radio-warning"
+              />
+              <span>T-Shirt (XS, S, M, L, XL)</span>
+            </label>
+            <button class="btn btn-primary mt-4" [disabled]="!form.valid" (click)="createRoom()">Create a room</button>
+          </fieldset>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

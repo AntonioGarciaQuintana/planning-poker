@@ -1,0 +1,99 @@
+<div class="flex flex-col items-center space-y-30">
+  <!-- Participants -->
+  <div>
+    <h2 class="text-3xl font-bold mb-10">Participants</h2>
+    <div class="flex justify-center flex-wrap gap-x-16">
+      @for (item of participantList; track $index) {
+      <div class="avatar indicator">
+
+        @if (!actualRoom?.reveal && (actualRoom?.startEstimation && item?.estimationApplied)) {
+        <span class="indicator-item indicator-bottom"><input type="checkbox" checked="checked"
+            class="checkbox border-indigo-600 bg-indigo-500 checked:border-orange-500 checked:bg-orange-400 checked:text-orange-800" /></span>
+        }
+
+        @if (!actualRoom?.reveal && (actualRoom?.startEstimation && !item?.estimationApplied)) {
+        <span class="indicator-item indicator-bottom loading loading-dots loading-xl"></span>
+        }
+
+        @if(actualRoom?.reveal){
+        <span
+          class="indicator-item indicator-bottom badge badge-info text-4xl font-bold">{{item?.estimation}}</span>
+        }
+
+        <span class="indicator-item badge badge-secondary">{{ item.name }}</span>
+        <div class="h-20 w-20 rounded-lg">
+          <img alt="Tailwind CSS examples" [src]="[item.avatar]" />
+        </div>
+      </div>
+      }
+    </div>
+  </div>
+
+  <!-- Card con botones -->
+  <div class="bg-base-300 rounded-xl shadow-lg p-4 w-80 flex justify-around">
+    <!-- Revelar -->
+    <div class="flex flex-col items-center">
+      <button class="btn btn-primary btn-circle w-15 h-15 mb-2" (click)="startEstimation()">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="w-6 h-6">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.5v15m7.5-7.5h-15" />
+        </svg>
+      </button>
+      <span class="text-sm font-medium">Start</span>
+    </div>
+
+    <!-- Restart -->
+    <div class="flex flex-col items-center">
+      <button class="btn btn-secondary btn-circle w-15 h-15 mb-2" (click)="revealEstimation()">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"
+          class="size-6">
+          <path stroke-linecap="round" stroke-linejoin="round"
+            d="M18 18.72a9.094 9.094 0 0 0 3.741-.479 3 3 0 0 0-4.682-2.72m.94 3.198.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0 1 12 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 0 1 6 18.719m12 0a5.971 5.971 0 0 0-.941-3.197m0 0A5.995 5.995 0 0 0 12 12.75a5.995 5.995 0 0 0-5.058 2.772m0 0a3 3 0 0 0-4.681 2.72 8.986 8.986 0 0 0 3.74.477m.94-3.197a5.971 5.971 0 0 0-.94 3.197M15 6.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm6 3a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Zm-13.5 0a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Z" />
+        </svg>
+
+      </button>
+      <span class="text-sm font-medium">Reveal</span>
+    </div>
+
+    <!-- Invite -->
+    <div class="flex flex-col items-center">
+      <button class="btn btn-accent btn-circle w-15 h-15 mb-2" (click)="invite()">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor"
+          className="size-6">
+          <path strokeLinecap="round" strokeLinejoin="round"
+            d="M7.217 10.907a2.25 2.25 0 1 0 0 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186 9.566-5.314m-9.566 7.5 9.566 5.314m0 0a2.25 2.25 0 1 0 3.935 2.186 2.25 2.25 0 0 0-3.935-2.186Zm0-12.814a2.25 2.25 0 1 0 3.933-2.185 2.25 2.25 0 0 0-3.933 2.185Z" />
+        </svg>
+      </button>
+      <span class="text-sm font-medium">Invite</span>
+    </div>
+  </div>
+
+  <!-- Cards -->
+  <div class="flex justify-center flex-wrap gap-6 mb-10">
+    @for (card of cards; track card) {
+    <div class="h-32 w-24 rounded-xl shadow-lg flex items-center justify-center cursor-pointer transition" [ngClass]="{
+        'bg-indigo-500 text-white border-4 border-indigo-700': actualParticipant?.estimation === card,
+        'bg-base-300 hover:bg-base-200': actualParticipant?.estimation !== card
+      }" (click)="selectCard(card)">
+      {{ card }}
+    </div>
+    }
+  </div>
+  <!-- <div class="flex flex-col items-center">
+    <h2 class="text-3xl font-bold mb-8">Choose your card 👇</h2>
+    <div class="flex justify-center flex-wrap gap-6 mb-10">
+      <div class="bg-base-300 h-32 w-24 rounded-xl shadow-lg flex items-center justify-center cursor-pointer">0</div>
+      <div class="bg-base-300 h-32 w-24 rounded-xl shadow-lg flex items-center justify-center cursor-pointer">1</div>
+      <div class="bg-base-300 h-32 w-24 rounded-xl shadow-lg flex items-center justify-center cursor-pointer">2</div>
+      <div class="bg-base-300 h-32 w-24 rounded-xl shadow-lg flex items-center justify-center cursor-pointer">3</div>
+      <div class="bg-base-300 h-32 w-24 rounded-xl shadow-lg flex items-center justify-center cursor-pointer">5</div>
+      <div class="bg-base-300 h-32 w-24 rounded-xl shadow-lg flex items-center justify-center cursor-pointer">8</div>
+      <div class="bg-base-300 h-32 w-24 rounded-xl shadow-lg flex items-center justify-center cursor-pointer">13</div>
+      <div class="bg-base-300 h-32 w-24 rounded-xl shadow-lg flex items-center justify-center cursor-pointer">21</div>
+      <div class="bg-base-300 h-32 w-24 rounded-xl shadow-lg flex items-center justify-center cursor-pointer">34</div>
+      <div class="bg-base-300 h-32 w-24 rounded-xl shadow-lg flex items-center justify-center cursor-pointer">55</div>
+      <div class="bg-base-300 h-32 w-24 rounded-xl shadow-lg flex items-center justify-center cursor-pointer">89</div>
+      <div class="bg-base-300 h-32 w-24 rounded-xl shadow-lg flex items-center justify-center cursor-pointer">?</div>
+      <div class="bg-base-300 h-32 w-24 rounded-xl shadow-lg flex items-center justify-center cursor-pointer">☕</div>
+    </div>
+  </div> -->
+</div>
