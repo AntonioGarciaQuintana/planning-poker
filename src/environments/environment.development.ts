@@ -1,7 +1,7 @@
 export const environment = {
   production: false,
   firebaseConfig: {
-    apiKey: 'AIzaSyCyXanqMDCO103xOcIPFkaEEG1tMxpR3EQ',
+    apiKey: '',
     authDomain: 'planning-poker-8b883.firebaseapp.com',
     databaseURL: 'https://planning-poker-8b883-default-rtdb.firebaseio.com',
     projectId: 'planning-poker-8b883',
